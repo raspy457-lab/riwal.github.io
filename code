@@ -1,0 +1,469 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reinabanana - Профиль</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: #1a1a1a; /* Темный фон как на скрине */
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            color: #e0e0e0;
+            line-height: 1.5;
+            padding: 20px;
+        }
+
+        /* Основной контейнер - имитация интерфейса */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 2fr 1fr; /* Три колонки: левая, центральная, правая */
+            gap: 20px;
+            align-items: start;
+        }
+
+        /* Общие стили для карточек/блоков */
+        .card {
+            background-color: #252525;
+            border: 1px solid #333;
+            border-radius: 10px;
+            overflow: hidden;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.3);
+        }
+
+        .card-header {
+            background-color: #2a2a2a;
+            padding: 12px 15px;
+            border-bottom: 1px solid #333;
+            font-weight: bold;
+            text-transform: uppercase;
+            font-size: 0.85rem;
+            letter-spacing: 0.5px;
+            color: #aaa;
+        }
+
+        .card-body {
+            padding: 15px;
+        }
+
+        /* Левая колонка */
+        .left-column .card:first-child .card-body {
+            text-align: center;
+            padding: 20px;
+        }
+
+        .avatar-placeholder {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            background-color: #444;
+            margin: 0 auto 15px;
+            border: 3px solid #666;
+        }
+
+        .username {
+            font-size: 1.4rem;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+
+        .handle {
+            color: #888;
+            margin-bottom: 15px;
+            font-size: 0.9rem;
+        }
+
+        .bio {
+            font-size: 0.9rem;
+            margin-bottom: 15px;
+            color: #ccc;
+        }
+
+        .joined {
+            font-size: 0.8rem;
+            color: #777;
+        }
+
+        /* Меню навигации */
+        .nav-menu {
+            list-style: none;
+        }
+
+        .nav-menu li {
+            padding: 8px 0;
+            border-bottom: 1px solid #333;
+        }
+
+        .nav-menu li:last-child {
+            border-bottom: none;
+        }
+
+        .nav-menu a {
+            color: #ddd;
+            text-decoration: none;
+            display: block;
+        }
+
+        .search-box {
+            background-color: #333;
+            border: 1px solid #444;
+            color: #fff;
+            padding: 8px 12px;
+            border-radius: 20px;
+            width: 100%;
+            margin: 10px 0;
+        }
+
+        /* Центральная колонка - посты */
+        .post-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+        .post-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background-color: #444;
+            margin-right: 10px;
+        }
+
+        .post-author {
+            font-weight: bold;
+        }
+
+        .post-meta {
+            font-size: 0.8rem;
+            color: #777;
+        }
+
+        .post-content {
+            margin-bottom: 15px;
+            font-size: 0.95rem;
+        }
+
+        .post-image-placeholder {
+            width: 100%;
+            height: 200px;
+            background: linear-gradient(45deg, #333, #444);
+            border-radius: 10px;
+            margin: 15px 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #777;
+        }
+
+        .post-stats {
+            border-top: 1px solid #333;
+            padding-top: 10px;
+            font-size: 0.8rem;
+            color: #777;
+        }
+
+        /* Карточка персонажа */
+        .character-card {
+            display: grid;
+            grid-template-columns: 60px 1fr;
+            gap: 10px;
+            margin-bottom: 15px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid #333;
+        }
+
+        .character-card:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+            padding-bottom: 0;
+        }
+
+        .character-icon {
+            width: 60px;
+            height: 60px;
+            background-color: #444;
+            border-radius: 8px;
+        }
+
+        .character-info h4 {
+            font-size: 1rem;
+            margin-bottom: 3px;
+            color: #fff;
+        }
+
+        .character-sub {
+            font-size: 0.75rem;
+            color: #aaa;
+            margin-bottom: 5px;
+        }
+
+        .character-stats {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.75rem;
+            color: #888;
+        }
+
+        .stat-value {
+            color: #ffaa33;
+            font-weight: bold;
+        }
+
+        /* Правая колонка */
+        .friend-item {
+            display: flex;
+            align-items: center;
+            padding: 8px 0;
+            border-bottom: 1px solid #333;
+        }
+
+        .friend-item:last-child {
+            border-bottom: none;
+        }
+
+        .friend-avatar {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            background-color: #444;
+            margin-right: 10px;
+        }
+
+        .friend-name {
+            font-size: 0.9rem;
+        }
+
+        .hashtag-list {
+            list-style: none;
+        }
+
+        .hashtag-list li {
+            color: #7aaae0;
+            margin-bottom: 8px;
+            font-size: 0.9rem;
+        }
+
+        .footer-note {
+            font-size: 0.7rem;
+            color: #666;
+            text-align: center;
+            margin-top: 20px;
+            grid-column: 1 / -1;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Левая колонка (Профиль и навигация) -->
+        <div class="left-column">
+            <!-- Карточка профиля -->
+            <div class="card">
+                <div class="card-body">
+                    <div class="avatar-placeholder"></div>
+                    <div class="username">Reinabanana</div>
+                    <div class="handle">@Reinasaurus</div>
+                    <div class="bio">
+                        Hello! My name is Raina but feel free to call me whatever you like.<br>
+                        Reina | Female | Gemini | INFP | Ravenclaw<br>
+                        Obsessed with Granblue Fantasy, IDOLiSH7, and Love Live!<br>
+                        Hungry 24/7. Forever gacha hell slave.
+                    </div>
+                    <div class="joined">Joined January 2015</div>
+                </div>
+            </div>
+
+            <!-- Меню навигации -->
+            <div class="card">
+                <div class="card-body">
+                    <ul class="nav-menu">
+                        <li><a href="#">HOME</a></li>
+                        <li><a href="#">TWITTER</a></li>
+                        <li><a href="#">TUMBLR</a></li>
+                        <li><a href="#">DEVIANTART</a></li>
+                    </ul>
+                    <input type="text" placeholder="Search" class="search-box">
+                    <ul class="nav-menu">
+                        <li><a href="#">POST</a></li>
+                        <li><a href="#">POSTS</a></li>
+                        <li><a href="#">ANIMELIST</a></li>
+                        <li><a href="#">ABOUT</a></li>
+                        <li><a href="#">PORTFOLIO</a></li>
+                        <li><a href="#">CLAIMS</a></li>
+                        <li><a href="#">POSTS & REPLIES</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Информация о лейауте -->
+            <div class="card">
+                <div class="card-header">LAYOUT</div>
+                <div class="card-body">
+                    <p style="font-size: 0.9rem; color: #bbb;">
+                        This layout features Narayya from Granblue Fantasy. The theme is basically a mixture of Tumblr and Twitter interfaces which I find simple and neat.
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Центральная колонка (Посты) -->
+        <div class="middle-column">
+            <!-- Пост 1 -->
+            <div class="card">
+                <div class="card-body">
+                    <div class="post-header">
+                        <div class="post-avatar"></div>
+                        <div>
+                            <div class="post-author">Reinabanana</div>
+                            <div class="post-meta">@Reinasaurus · 1 Aug 2018</div>
+                        </div>
+                    </div>
+                    <div class="post-content">
+                        <strong>:aboutme</strong><br><br>
+                        Hello! My name is Raina but feel free to call me whatever you like. My given nicknames include Reinanachl, Reinabanana, what-so-ever. I blow candles on my cake every 21st of June. I'm an introvert who prefers indoor activities such as watching anime, playing video games, reading novels, napping, and creating GFXs. I've been in a relationship with my boyfriend for almost six years. Moving on to my personality, I'm not much of a talker in real life but when it comes to my top best friends, I can be downright crazy.
+                    </div>
+                    <div class="post-stats">
+                        POSTED August 1, 2018 @ 12:00PM · 0 notes
+                    </div>
+                </div>
+            </div>
+
+            <!-- Пост 2 с карточками персонажей -->
+            <div class="card">
+                <div class="card-body">
+                    <div class="character-card">
+                        <div class="character-icon"></div>
+                        <div class="character-info">
+                            <h4>JEANNE D'ARC (FALLEN MAIDEN)</h4>
+                            <div class="character-sub">Element: Dark · Race: Human · Specialty: Saber</div>
+                            <div class="character-stats">
+                                <span>HP <span class="stat-value">1200</span></span>
+                                <span>ATK <span class="stat-value">9800</span></span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="character-card">
+                        <div class="character-icon"></div>
+                        <div class="character-info">
+                            <h4>ZOOEY (ARBITRATOR'S SUMMER HOLIDAY)</h4>
+                            <div class="character-sub">Element: Dark · Race: Primal · Specialty: Saber</div>
+                            <div class="character-stats">
+                                <span>HP <span class="stat-value">1180</span></span>
+                                <span>ATK <span class="stat-value">8200</span></span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="character-card">
+                        <div class="character-icon"></div>
+                        <div class="character-info">
+                            <h4>OLIVIA (DARK ANGEL)</h4>
+                            <div class="character-sub">Element: Dark · Race: Primal · Specialty: Saber</div>
+                            <div class="character-stats">
+                                <span>HP <span class="stat-value">1480</span></span>
+                                <span>ATK <span class="stat-value">7800</span></span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="character-card">
+                        <div class="character-icon"></div>
+                        <div class="character-info">
+                            <h4>NARMAYA (FLUTTERING SWORDSWOMAN)</h4>
+                            <div class="character-sub">Element: Dark · Race: Draph · Specialty: Katana</div>
+                            <div class="character-stats">
+                                <span>HP <span class="stat-value">1120</span></span>
+                                <span>ATK <span class="stat-value">10240</span></span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="character-card">
+                        <div class="character-icon"></div>
+                        <div class="character-info">
+                            <h4>VIRA (LOVE-CRAZED KNIGHT)</h4>
+                            <div class="character-sub">Element: Dark · Race: Human · Specialty: Saber</div>
+                            <div class="character-stats">
+                                <span>HP <span class="stat-value">1280</span></span>
+                                <span>ATK <span class="stat-value">8960</span></span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="post-stats">
+                        POSTED August 1, 2018 @ 11:35PM · 0 notes
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Правая колонка (Друзья и теги) -->
+        <div class="right-column">
+            <!-- Best Friends -->
+            <div class="card">
+                <div class="card-header">BEST FRIENDS · Refresh View All</div>
+                <div class="card-body">
+                    <div class="friend-item">
+                        <div class="friend-avatar"></div>
+                        <div class="friend-name">Yuyu @Omikami · Follow</div>
+                    </div>
+                    <div class="friend-item">
+                        <div class="friend-avatar"></div>
+                        <div class="friend-name">Booneh @Bunnyama · Follow</div>
+                    </div>
+                    <div class="friend-item">
+                        <div class="friend-avatar"></div>
+                        <div class="friend-name">Nanago @_Nagisa · Follow</div>
+                    </div>
+                    <div class="friend-item">
+                        <div class="friend-avatar"></div>
+                        <div class="friend-name">Merlo @Dechromarlo · Follow</div>
+                    </div>
+                    <div class="friend-item">
+                        <div class="friend-avatar"></div>
+                        <div class="friend-name">Galacchi @GalaXys · Follow</div>
+                    </div>
+                    <div class="friend-item">
+                        <div class="friend-avatar"></div>
+                        <div class="friend-name">Memesa @qeesa · Follow</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Current Obsessions -->
+            <div class="card">
+                <div class="card-header">CURRENT OBSESSIONS</div>
+                <div class="card-body">
+                    <ul class="hashtag-list">
+                        <li>#GranblueFantasy · Djeeta</li>
+                        <li>#IDOLISH7 · Yeotome Gaku · Imai Asami</li>
+                        <li>#LoveLive · Minami Kotori</li>
+                        <li>#KingdomHearts · Roxas</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Han Megumi (пример) -->
+            <div class="card">
+                <div class="card-header">HAN MEGUMI</div>
+                <div class="card-body" style="text-align: center; color: #888; font-size: 0.9rem;">
+                    <p>Best Friends</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Подвал (необязательно) -->
+        <div class="footer-note">
+            Reinabanana layout · Inspired by Tumblr/Twitter
+        </div>
+    </div>
+</body>
+</html>
