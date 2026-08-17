@@ -1,9 +1,19 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Reinabanana - Профиль</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ART FLOWER — Riwal Veata</title>
+
+    <!-- Подключаем шрифт Playfair Display (элегантный, артистичный) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500&display=swap" rel="stylesheet" />
+
+    <!-- Иконка сайта -->
+    <link rel="icon" type="image/gif" href="https://e.radikal.host/2026/03/20/xk211An.gif" />
+    <link rel="shortcut icon" type="image/gif" href="https://e.radikal.host/2026/03/20/xk211An.gif" />
+
     <style>
         * {
             margin: 0;
@@ -12,458 +22,607 @@
         }
 
         body {
-            background-color: #1a1a1a; /* Темный фон как на скрине */
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
-            color: #e0e0e0;
-            line-height: 1.5;
-            padding: 20px;
+            background-color: #f5efe8; /* тёплый кремовый, как бумага */
+            font-family: 'Inter', sans-serif;
+            color: #2a1f1a;
+            line-height: 1.6;
+            padding: 30px 20px;
+            min-height: 100vh;
+            position: relative;
         }
 
-        /* Основной контейнер - имитация интерфейса */
+        /* Лёгкая текстурная «пыльца» */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-image: radial-gradient(circle at 20% 30%, rgba(200, 170, 150, 0.08) 0%, transparent 60%),
+                              radial-gradient(circle at 80% 70%, rgba(180, 140, 120, 0.06) 0%, transparent 50%);
+            pointer-events: none;
+            z-index: 0;
+        }
+
         .container {
-            max-width: 1200px;
+            max-width: 1400px;
             margin: 0 auto;
             display: grid;
-            grid-template-columns: 1fr 2fr 1fr; /* Три колонки: левая, центральная, правая */
-            gap: 20px;
+            grid-template-columns: 1.2fr 2.2fr 1.2fr;
+            gap: 30px;
             align-items: start;
+            position: relative;
+            z-index: 1;
         }
 
-        /* Общие стили для карточек/блоков */
-        .card {
-            background-color: #252525;
-            border: 1px solid #333;
-            border-radius: 10px;
+        /* ——— КНОПКА ЯЗЫКА ——— */
+        .language-switch {
+            position: fixed;
+            top: 24px;
+            right: 24px;
+            z-index: 100;
+            background: rgba(245, 239, 232, 0.75);
+            backdrop-filter: blur(8px);
+            border: 1px solid #dccfc4;
+            border-radius: 40px;
+            padding: 6px 14px;
+            display: flex;
+            gap: 8px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.04);
+            font-family: 'Inter', sans-serif;
+        }
+
+        .lang-btn {
+            background: none;
+            border: none;
+            color: #2a1f1a;
+            font-size: 0.75rem;
+            font-weight: 500;
+            letter-spacing: 0.5px;
+            cursor: pointer;
+            padding: 4px 12px;
+            border-radius: 30px;
+            transition: all 0.25s ease;
+            font-family: inherit;
+        }
+
+        .lang-btn.active {
+            background: #2a1f1a;
+            color: #f5efe8;
+        }
+
+        .lang-btn:hover:not(.active) {
+            background: rgba(42, 31, 26, 0.08);
+        }
+
+        /* ——— ОБЩИЕ КАРТОЧКИ ——— */
+        .card,
+        .info-block {
+            background: rgba(255, 251, 245, 0.70);
+            backdrop-filter: blur(4px);
+            border: 1px solid #dccfc4;
+            border-radius: 20px;
             overflow: hidden;
-            margin-bottom: 20px;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.3);
+            margin-bottom: 28px;
+            box-shadow: 0 6px 30px rgba(42, 31, 26, 0.04);
+            transition: transform 0.2s ease;
+        }
+
+        .card:hover,
+        .info-block:hover {
+            transform: translateY(-2px);
         }
 
         .card-header {
-            background-color: #2a2a2a;
-            padding: 12px 15px;
-            border-bottom: 1px solid #333;
-            font-weight: bold;
+            padding: 18px 24px;
+            border-bottom: 1px solid #e5d8cd;
+            font-family: 'Playfair Display', serif;
+            font-weight: 600;
+            font-size: 0.9rem;
+            letter-spacing: 0.6px;
             text-transform: uppercase;
-            font-size: 0.85rem;
-            letter-spacing: 0.5px;
-            color: #aaa;
+            color: #6b4f3a;
+            background: rgba(245, 239, 232, 0.3);
         }
 
         .card-body {
-            padding: 15px;
+            padding: 24px;
         }
 
-        /* Левая колонка */
+        /* ——— ПРОФИЛЬ / АВАТАР ——— */
         .left-column .card:first-child .card-body {
             text-align: center;
-            padding: 20px;
+            padding: 32px 24px;
         }
 
         .avatar-placeholder {
-            width: 80px;
-            height: 80px;
+            width: 160px;
+            height: 160px;
             border-radius: 50%;
-            background-color: #444;
-            margin: 0 auto 15px;
-            border: 3px solid #666;
+            margin: 0 auto 20px;
+            border: 3px solid #dccfc4;
+            overflow: hidden;
+            background: #f0e8e0;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.04);
         }
 
-        .username {
-            font-size: 1.4rem;
-            font-weight: bold;
-            margin-bottom: 5px;
-        }
-
-        .handle {
-            color: #888;
-            margin-bottom: 15px;
-            font-size: 0.9rem;
-        }
-
-        .bio {
-            font-size: 0.9rem;
-            margin-bottom: 15px;
-            color: #ccc;
-        }
-
-        .joined {
-            font-size: 0.8rem;
-            color: #777;
-        }
-
-        /* Меню навигации */
-        .nav-menu {
-            list-style: none;
-        }
-
-        .nav-menu li {
-            padding: 8px 0;
-            border-bottom: 1px solid #333;
-        }
-
-        .nav-menu li:last-child {
-            border-bottom: none;
-        }
-
-        .nav-menu a {
-            color: #ddd;
-            text-decoration: none;
+        .avatar-placeholder img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
             display: block;
         }
 
-        .search-box {
-            background-color: #333;
-            border: 1px solid #444;
-            color: #fff;
-            padding: 8px 12px;
-            border-radius: 20px;
-            width: 100%;
-            margin: 10px 0;
+        .bio {
+            font-size: 1rem;
+            margin-bottom: 14px;
+            color: #2a1f1a;
+            font-family: 'Playfair Display', serif;
+            font-weight: 400;
+            font-style: italic;
+            line-height: 1.5;
         }
 
-        /* Центральная колонка - посты */
-        .post-header {
-            display: flex;
-            align-items: center;
-            margin-bottom: 15px;
-        }
-
-        .post-avatar {
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            background-color: #444;
-            margin-right: 10px;
-        }
-
-        .post-author {
-            font-weight: bold;
-        }
-
-        .post-meta {
+        .update-text {
+            font-family: 'Inter', sans-serif;
             font-size: 0.8rem;
-            color: #777;
+            letter-spacing: 0.3px;
+            color: #b5987e;
+            font-style: normal;
         }
 
-        .post-content {
-            margin-bottom: 15px;
+        /* ——— ИНФОБЛОКИ ——— */
+        .info-block {
+            padding: 24px;
+        }
+
+        .info-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: #2a1f1a;
+            margin-bottom: 18px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #e5d8cd;
+            letter-spacing: 0.5px;
+        }
+
+        .colored-item {
+            font-family: 'Playfair Display', serif;
+            font-weight: 600;
             font-size: 0.95rem;
+            letter-spacing: 0.6px;
+            text-transform: uppercase;
+            color: #b5987e;
+            margin-top: 22px;
+            margin-bottom: 6px;
         }
 
-        .post-image-placeholder {
-            width: 100%;
-            height: 200px;
-            background: linear-gradient(45deg, #333, #444);
-            border-radius: 10px;
-            margin: 15px 0;
+        .colored-item:first-of-type {
+            margin-top: 0;
+        }
+
+        .info-text {
+            font-size: 0.92rem;
+            color: #2a1f1a;
+            line-height: 1.6;
+            margin-bottom: 5px;
+            padding-left: 10px;
+            font-weight: 400;
+        }
+
+        .info-text a {
+            color: #2a1f1a;
+            text-decoration: none;
+            border-bottom: 1px solid #dccfc4;
+            transition: border-color 0.2s ease;
+        }
+
+        .info-text a:hover {
+            border-bottom-color: #b5987e;
+        }
+
+        .info-text-small {
+            font-size: 0.78rem;
+            color: #8f7868;
+            line-height: 1.4;
+            margin-top: 2px;
+            margin-bottom: 8px;
+            padding-left: 26px;
+            font-style: italic;
+            font-weight: 300;
+        }
+
+        /* ——— АККОРДЕОН ——— */
+        .accordion {
+            margin: 18px 0;
+        }
+
+        .accordion-header {
+            background: #f0e8e0;
+            padding: 12px 18px;
+            border-radius: 14px;
+            cursor: default;
+            font-weight: 500;
+            font-size: 1rem;
+            border: 1px solid #e5d8cd;
             display: flex;
             align-items: center;
             justify-content: center;
-            color: #777;
+            transition: background 0.2s;
+            font-family: 'Playfair Display', serif;
+            letter-spacing: 0.4px;
         }
 
-        .post-stats {
-            border-top: 1px solid #333;
-            padding-top: 10px;
-            font-size: 0.8rem;
-            color: #777;
+        .accordion-header:hover {
+            background: #e8ddd2;
         }
 
-        /* Карточка персонажа */
-        .character-card {
+        .accordion-content {
+            background: rgba(255, 251, 245, 0.5);
+            border: 1px solid #e5d8cd;
+            border-top: none;
+            border-radius: 0 0 14px 14px;
+            padding: 4px 0;
+        }
+
+        /* ——— СЕТКИ КАРТИНОК ——— */
+        .image-grid {
             display: grid;
-            grid-template-columns: 60px 1fr;
-            gap: 10px;
-            margin-bottom: 15px;
-            padding-bottom: 15px;
-            border-bottom: 1px solid #333;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+            padding: 20px;
         }
 
-        .character-card:last-child {
-            border-bottom: none;
-            margin-bottom: 0;
-            padding-bottom: 0;
+        .image-item img {
+            width: 100%;
+            max-width: 280px;
+            height: auto;
+            border-radius: 14px;
+            border: 1px solid #e5d8cd;
+            margin: 0 auto;
+            display: block;
+            background: #f5efe8;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.02);
+            transition: transform 0.25s ease;
         }
 
-        .character-icon {
-            width: 60px;
-            height: 60px;
-            background-color: #444;
-            border-radius: 8px;
+        .image-item img:hover {
+            transform: scale(1.01);
         }
 
-        .character-info h4 {
-            font-size: 1rem;
-            margin-bottom: 3px;
-            color: #fff;
+        .wide-image-item img {
+            width: 100%;
+            height: auto;
+            border-radius: 14px;
+            border: 1px solid #e5d8cd;
+            background: #f5efe8;
         }
 
-        .character-sub {
-            font-size: 0.75rem;
-            color: #aaa;
-            margin-bottom: 5px;
+        .gallery {
+            padding: 20px;
         }
 
-        .character-stats {
-            display: flex;
-            justify-content: space-between;
-            font-size: 0.75rem;
-            color: #888;
-        }
-
-        .stat-value {
-            color: #ffaa33;
-            font-weight: bold;
-        }
-
-        /* Правая колонка */
-        .friend-item {
-            display: flex;
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 16px;
             align-items: center;
-            padding: 8px 0;
-            border-bottom: 1px solid #333;
+            justify-items: center;
         }
 
-        .friend-item:last-child {
-            border-bottom: none;
+        .gallery img {
+            width: 100%;
+            height: auto;
+            display: block;
+            border-radius: 14px;
+            border: 1px solid #e5d8cd;
+            background: #f5efe8;
+            transition: transform 0.25s ease;
         }
 
-        .friend-avatar {
-            width: 30px;
-            height: 30px;
-            border-radius: 50%;
-            background-color: #444;
-            margin-right: 10px;
+        .gallery img:hover {
+            transform: scale(1.02);
         }
 
-        .friend-name {
-            font-size: 0.9rem;
+        .gallery-grid img[alt="E"] {
+            max-width: 70px;
+            margin: 0 auto;
         }
 
-        .hashtag-list {
-            list-style: none;
+        .gallery-wide {
+            margin-bottom: 18px;
         }
 
-        .hashtag-list li {
-            color: #7aaae0;
-            margin-bottom: 8px;
-            font-size: 0.9rem;
+        .gallery-wide img {
+            width: 100%;
+            height: auto;
+            border-radius: 14px;
+            border: 1px solid #e5d8cd;
+            background: #f5efe8;
         }
 
+        /* ——— АРТИСТИЧНЫЙ БЛОК "МЫ ПРОДАЕМ НЕ ЦВЕТЫ" ——— */
+        .art-statement {
+            margin-top: 18px;
+            padding: 20px 20px 14px;
+            border-top: 2px solid #e5d8cd;
+            text-align: center;
+            font-family: 'Playfair Display', serif;
+            font-size: 0.85rem;
+            font-style: italic;
+            letter-spacing: 0.5px;
+            color: #6b4f3a;
+            text-transform: uppercase;
+        }
+
+        .art-statement span {
+            display: inline-block;
+            background: rgba(181, 152, 126, 0.08);
+            padding: 4px 16px;
+            border-radius: 40px;
+            font-weight: 400;
+        }
+
+        /* ——— ФУТЕР ——— */
         .footer-note {
             font-size: 0.7rem;
-            color: #666;
+            color: #b5987e;
             text-align: center;
-            margin-top: 20px;
+            margin-top: 40px;
             grid-column: 1 / -1;
+            font-family: 'Inter', sans-serif;
+            letter-spacing: 0.3px;
+            border-top: 1px solid #e5d8cd;
+            padding-top: 24px;
+        }
+
+        /* ——— АДАПТИВ ——— */
+        @media (max-width: 900px) {
+            .container {
+                grid-template-columns: 1fr 1fr;
+            }
+            .right-column {
+                grid-column: 1 / -1;
+            }
+        }
+
+        @media (max-width: 600px) {
+            .container {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+            .gallery-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            .language-switch {
+                top: 12px;
+                right: 12px;
+                padding: 4px 10px;
+            }
+            .lang-btn {
+                font-size: 0.7rem;
+                padding: 3px 8px;
+            }
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <!-- Левая колонка (Профиль и навигация) -->
-        <div class="left-column">
-            <!-- Карточка профиля -->
-            <div class="card">
-                <div class="card-body">
-                    <div class="avatar-placeholder"></div>
-                    <div class="username">Reinabanana</div>
-                    <div class="handle">@Reinasaurus</div>
-                    <div class="bio">
-                        Hello! My name is Raina but feel free to call me whatever you like.<br>
-                        Reina | Female | Gemini | INFP | Ravenclaw<br>
-                        Obsessed with Granblue Fantasy, IDOLiSH7, and Love Live!<br>
-                        Hungry 24/7. Forever gacha hell slave.
-                    </div>
-                    <div class="joined">Joined January 2015</div>
-                </div>
-            </div>
 
-            <!-- Меню навигации -->
-            <div class="card">
-                <div class="card-body">
-                    <ul class="nav-menu">
-                        <li><a href="#">HOME</a></li>
-                        <li><a href="#">TWITTER</a></li>
-                        <li><a href="#">TUMBLR</a></li>
-                        <li><a href="#">DEVIANTART</a></li>
-                    </ul>
-                    <input type="text" placeholder="Search" class="search-box">
-                    <ul class="nav-menu">
-                        <li><a href="#">POST</a></li>
-                        <li><a href="#">POSTS</a></li>
-                        <li><a href="#">ANIMELIST</a></li>
-                        <li><a href="#">ABOUT</a></li>
-                        <li><a href="#">PORTFOLIO</a></li>
-                        <li><a href="#">CLAIMS</a></li>
-                        <li><a href="#">POSTS & REPLIES</a></li>
-                    </ul>
-                </div>
-            </div>
-
-            <!-- Информация о лейауте -->
-            <div class="card">
-                <div class="card-header">LAYOUT</div>
-                <div class="card-body">
-                    <p style="font-size: 0.9rem; color: #bbb;">
-                        This layout features Narayya from Granblue Fantasy. The theme is basically a mixture of Tumblr and Twitter interfaces which I find simple and neat.
-                    </p>
-                </div>
-            </div>
-        </div>
-
-        <!-- Центральная колонка (Посты) -->
-        <div class="middle-column">
-            <!-- Пост 1 -->
-            <div class="card">
-                <div class="card-body">
-                    <div class="post-header">
-                        <div class="post-avatar"></div>
-                        <div>
-                            <div class="post-author">Reinabanana</div>
-                            <div class="post-meta">@Reinasaurus · 1 Aug 2018</div>
-                        </div>
-                    </div>
-                    <div class="post-content">
-                        <strong>:aboutme</strong><br><br>
-                        Hello! My name is Raina but feel free to call me whatever you like. My given nicknames include Reinanachl, Reinabanana, what-so-ever. I blow candles on my cake every 21st of June. I'm an introvert who prefers indoor activities such as watching anime, playing video games, reading novels, napping, and creating GFXs. I've been in a relationship with my boyfriend for almost six years. Moving on to my personality, I'm not much of a talker in real life but when it comes to my top best friends, I can be downright crazy.
-                    </div>
-                    <div class="post-stats">
-                        POSTED August 1, 2018 @ 12:00PM · 0 notes
-                    </div>
-                </div>
-            </div>
-
-            <!-- Пост 2 с карточками персонажей -->
-            <div class="card">
-                <div class="card-body">
-                    <div class="character-card">
-                        <div class="character-icon"></div>
-                        <div class="character-info">
-                            <h4>JEANNE D'ARC (FALLEN MAIDEN)</h4>
-                            <div class="character-sub">Element: Dark · Race: Human · Specialty: Saber</div>
-                            <div class="character-stats">
-                                <span>HP <span class="stat-value">1200</span></span>
-                                <span>ATK <span class="stat-value">9800</span></span>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="character-card">
-                        <div class="character-icon"></div>
-                        <div class="character-info">
-                            <h4>ZOOEY (ARBITRATOR'S SUMMER HOLIDAY)</h4>
-                            <div class="character-sub">Element: Dark · Race: Primal · Specialty: Saber</div>
-                            <div class="character-stats">
-                                <span>HP <span class="stat-value">1180</span></span>
-                                <span>ATK <span class="stat-value">8200</span></span>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="character-card">
-                        <div class="character-icon"></div>
-                        <div class="character-info">
-                            <h4>OLIVIA (DARK ANGEL)</h4>
-                            <div class="character-sub">Element: Dark · Race: Primal · Specialty: Saber</div>
-                            <div class="character-stats">
-                                <span>HP <span class="stat-value">1480</span></span>
-                                <span>ATK <span class="stat-value">7800</span></span>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="character-card">
-                        <div class="character-icon"></div>
-                        <div class="character-info">
-                            <h4>NARMAYA (FLUTTERING SWORDSWOMAN)</h4>
-                            <div class="character-sub">Element: Dark · Race: Draph · Specialty: Katana</div>
-                            <div class="character-stats">
-                                <span>HP <span class="stat-value">1120</span></span>
-                                <span>ATK <span class="stat-value">10240</span></span>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="character-card">
-                        <div class="character-icon"></div>
-                        <div class="character-info">
-                            <h4>VIRA (LOVE-CRAZED KNIGHT)</h4>
-                            <div class="character-sub">Element: Dark · Race: Human · Specialty: Saber</div>
-                            <div class="character-stats">
-                                <span>HP <span class="stat-value">1280</span></span>
-                                <span>ATK <span class="stat-value">8960</span></span>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="post-stats">
-                        POSTED August 1, 2018 @ 11:35PM · 0 notes
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Правая колонка (Друзья и теги) -->
-        <div class="right-column">
-            <!-- Best Friends -->
-            <div class="card">
-                <div class="card-header">BEST FRIENDS · Refresh View All</div>
-                <div class="card-body">
-                    <div class="friend-item">
-                        <div class="friend-avatar"></div>
-                        <div class="friend-name">Yuyu @Omikami · Follow</div>
-                    </div>
-                    <div class="friend-item">
-                        <div class="friend-avatar"></div>
-                        <div class="friend-name">Booneh @Bunnyama · Follow</div>
-                    </div>
-                    <div class="friend-item">
-                        <div class="friend-avatar"></div>
-                        <div class="friend-name">Nanago @_Nagisa · Follow</div>
-                    </div>
-                    <div class="friend-item">
-                        <div class="friend-avatar"></div>
-                        <div class="friend-name">Merlo @Dechromarlo · Follow</div>
-                    </div>
-                    <div class="friend-item">
-                        <div class="friend-avatar"></div>
-                        <div class="friend-name">Galacchi @GalaXys · Follow</div>
-                    </div>
-                    <div class="friend-item">
-                        <div class="friend-avatar"></div>
-                        <div class="friend-name">Memesa @qeesa · Follow</div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Current Obsessions -->
-            <div class="card">
-                <div class="card-header">CURRENT OBSESSIONS</div>
-                <div class="card-body">
-                    <ul class="hashtag-list">
-                        <li>#GranblueFantasy · Djeeta</li>
-                        <li>#IDOLISH7 · Yeotome Gaku · Imai Asami</li>
-                        <li>#LoveLive · Minami Kotori</li>
-                        <li>#KingdomHearts · Roxas</li>
-                    </ul>
-                </div>
-            </div>
-
-            <!-- Han Megumi (пример) -->
-            <div class="card">
-                <div class="card-header">HAN MEGUMI</div>
-                <div class="card-body" style="text-align: center; color: #888; font-size: 0.9rem;">
-                    <p>Best Friends</p>
-                </div>
-            </div>
-        </div>
-
-        <!-- Подвал (необязательно) -->
-        <div class="footer-note">
-            Reinabanana layout · Inspired by Tumblr/Twitter
-        </div>
+    <!-- КНОПКА ЯЗЫКА -->
+    <div class="language-switch">
+        <button class="lang-btn active" data-lang="ru">RU</button>
+        <button class="lang-btn" data-lang="en">EN</button>
     </div>
+
+    <div class="container">
+
+        <!-- ===== ЛЕВАЯ КОЛОНКА ===== -->
+        <div class="left-column">
+
+            <!-- ПРОФИЛЬ -->
+            <div class="card">
+                <div class="card-body">
+                    <div class="avatar-placeholder">
+                        <img src="https://e.radikal.host/2026/03/18/feral2.png" alt="avatar" />
+                    </div>
+                    <div>
+                        <img src="https://e.radikal.host/2026/03/20/10000505666d2f34d36fd1caf3a.png" alt="signature" style="max-width:180px;" />
+                    </div>
+                    <div class="bio" data-en="Hi friend! My name is Riw / Riwal. I'm a digital artist." data-ru="Привет! Меня зовут Рив / Ривал. Я диджитал-художник.">
+                        Привет! Меня зовут Рив / Ривал. Я диджитал-художник.
+                    </div>
+                    <div class="bio" style="font-family:'Inter',sans-serif; font-style:normal; font-size:0.8rem;">
+                        <span class="update-text" data-en="Last update: 19.03.26" data-ru="Последнее обновление: 19.03.26">Последнее обновление: 19.03.26</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ИНФО -->
+            <div class="info-block">
+                <div class="info-title" data-en="📌 INFO" data-ru="📌 ИНФОРМАЦИЯ">📌 ИНФОРМАЦИЯ</div>
+
+                <div class="colored-item" data-en="✦ ABOUT" data-ru="✦ ОБО МНЕ">✦ ОБО МНЕ</div>
+                <div class="info-text" data-en="• Open for commissions" data-ru="• Заказы открыты">• Заказы открыты</div>
+
+                <div class="colored-item" data-en="✦ TOOLS" data-ru="✦ ПРОГРАММЫ">✦ ПРОГРАММЫ</div>
+                <div class="info-text">• Photoshop</div>
+                <div class="info-text">• Clip Studio Paint</div>
+
+                <div class="colored-item" data-en="✦ SOCIALS" data-ru="✦ СОЦСЕТИ">✦ СОЦСЕТИ</div>
+                <div class="info-text">• <a href="https://www.tumblr.com/riwaaaal?source=share">Tumblr</a></div>
+                <div class="info-text">• <a href="https://www.instagram.com/riwwwal/">Instagram</a></div>
+                <div class="info-text">• <a href="https://www.deviantart.com/rishw">DeviantArt</a></div>
+                <div class="info-text">• <a href="https://vk.com/veatarish">VK</a></div>
+            </div>
+        </div>
+
+        <!-- ===== ЦЕНТРАЛЬНАЯ КОЛОНКА ===== -->
+        <div class="middle-column">
+
+            <div class="card">
+                <div class="card-body">
+
+                    <!-- АРТИСТИЧНЫЙ ЗАГОЛОВОК -->
+                    <div style="text-align:center; margin-bottom:24px; font-family:'Playfair Display',serif;">
+                        <div style="font-size:1.6rem; font-weight:700; letter-spacing:2px; color:#2a1f1a;">ART FLOWER</div>
+                        <div style="font-size:0.8rem; color:#b5987e; letter-spacing:2px; text-transform:uppercase; margin-top:2px;">дизайн от Анрекьюит</div>
+                        <div style="width:60px; height:2px; background:#dccfc4; margin:12px auto 8px;"></div>
+                        <div style="font-size:0.75rem; color:#8f7868; letter-spacing:1px;">Новосибирск — 2019</div>
+                    </div>
+
+                    <!-- ГАЛЕРЕЯ 1 -->
+                    <div class="accordion">
+                        <div class="accordion-header">
+                            <span style="font-family:'Inter',sans-serif; font-weight:300; letter-spacing:2px;">✦</span> &nbsp; БУКЕТЫ &nbsp; <span style="font-family:'Inter',sans-serif; font-weight:300; letter-spacing:2px;">✦</span>
+                        </div>
+                        <div class="accordion-content">
+                            <div style="padding:20px 20px 0;">
+                                <div class="wide-image-item">
+                                    <img src="https://e.radikal.host/2026/03/19/2026-03-19_21-52-28.png" alt="букет 1" />
+                                </div>
+                            </div>
+                            <div class="image-grid">
+                                <div class="image-item"><img src="https://e.radikal.host/2026/03/19/Maket_hkah88mm.jpg" alt="букет 2" /></div>
+                                <div class="image-item"><img src="https://e.radikal.host/2026/03/19/2026-03-19_21-49-25.png" alt="букет 3" /></div>
+                                <div class="image-item"><img src="https://e.radikal.host/2026/03/19/u7UneCy_zUrp9gQ-pXyLLBvaEfMwkTCAEUajv6lBCP9sNlQ-fVIzhTGB5JrNlfPRru_LFAT_SMgqmaQn-cIqCa39-2.jpg" alt="букет 4" /></div>
+                                <div class="image-item"><img src="https://e.radikal.host/2026/03/19/ETepdN0f2Lu6acI7yO7fjJSF295870xyzDJPIz1WZ2diZ4B8Zc4v7GPqT8HhoZ4R7_AJtwtC4XfSlnG7hGmxK2u4.jpg" alt="букет 5" /></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- ГАЛЕРЕЯ 2 -->
+                    <div class="accordion" style="margin-top:20px;">
+                        <div class="accordion-header">
+                            <span style="font-family:'Inter',sans-serif; font-weight:300; letter-spacing:2px;">✦</span> &nbsp; АРТ-ОБЪЕКТЫ &nbsp; <span style="font-family:'Inter',sans-serif; font-weight:300; letter-spacing:2px;">✦</span>
+                        </div>
+                        <div class="accordion-content">
+                            <div class="gallery">
+                                <div class="gallery-wide">
+                                    <img src="https://e.radikal.host/2026/03/19/Illustration84-1.jpg" alt="арт-объект 1" />
+                                </div>
+                                <div class="gallery-grid">
+                                    <img src="https://e.radikal.host/2026/03/19/KSY1.png" alt="A" />
+                                    <img src="https://e.radikal.host/2026/03/19/STSTST2.png" alt="B" />
+                                    <img src="https://e.radikal.host/2026/03/19/rr4r-3.png" alt="C" />
+                                    <img src="https://e.radikal.host/2026/03/19/apapglurl.png" alt="D" />
+                                    <img src="https://e.radikal.host/2026/03/19/medalebreoygtsy-1.png" alt="E" style="max-width:75px; width:100%; height:auto;" />
+                                    <img src="https://e.radikal.host/2026/03/19/Illustration64-1.png" alt="F" />
+                                    <img src="https://e.radikal.host/2026/03/20/Illustration50-1.png" alt="G" />
+                                    <img src="https://e.radikal.host/2026/03/20/Illustration32-2.png" alt="H" />
+                                    <img src="https://e.radikal.host/2026/03/20/Illusratio6n54-1.png" alt="I" style="max-width:75px; width:100%; height:auto;" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- АРТИСТИЧНЫЙ ТЕКСТ (вдохновение из буклета) -->
+                    <div class="art-statement">
+                        <span>«Мы продаём не цветы, а инструменты для упражнения чувств»</span>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+        <!-- ===== ПРАВАЯ КОЛОНКА ===== -->
+        <div class="right-column">
+
+            <div class="info-block">
+                <div class="info-title" data-en="📌 COMMISSIONS" data-ru="📌 ЗАКАЗЫ">📌 ЗАКАЗЫ</div>
+
+                <!-- CAN DO -->
+                <div class="colored-item" data-en="✦ CAN DO" data-ru="✦ МОГУ">✦ МОГУ</div>
+                <div class="info-text" data-en="• Natural backgrounds" data-ru="• Природные фоны">• Природные фоны</div>
+                <div class="info-text" data-en="• Anthro and feral" data-ru="• Антропоморфные животные и фералы">• Антропоморфные животные и фералы</div>
+                <div class="info-text" data-en="• Fanart" data-ru="• Фан-арты">• Фан-арты</div>
+                <div class="info-text" data-en="• OCs" data-ru="• Оригинальные персонажи">• Оригинальные персонажи</div>
+                <div class="info-text" data-en="• Semi gore" data-ru="• Лёгкий гуро">• Лёгкий гуро</div>
+
+                <!-- CANT DO -->
+                <div class="colored-item" data-en="✦ CANT DO / IT'S HARD" data-ru="✦ НЕ МОГУ / СЛОЖНО">✦ НЕ МОГУ / СЛОЖНО</div>
+                <div class="info-text" data-en="• Mechanical/robot designs" data-ru="• Механизмы/роботы">• Механизмы/роботы</div>
+                <div class="info-text" data-en="• Humans" data-ru="• Люди">• Люди</div>
+                <div class="info-text" data-en="• NSFW" data-ru="• NSFW">• NSFW</div>
+                <div class="info-text" data-en="• Heavy gore" data-ru="• Тяжёлый гуро">• Тяжёлый гуро</div>
+                <div class="info-text" data-en="• Architecture" data-ru="• Архитектура">• Архитектура</div>
+
+                <!-- PRICES -->
+                <div class="colored-item" data-en="✦ PRICES" data-ru="✦ ПРАЙС">✦ ПРАЙС</div>
+                <div class="info-text" data-en="• Headshot" data-ru="• Портрет">• Портрет</div>
+                <div class="info-text-small">↳ Скетч — 5$</div>
+                <div class="info-text-small">↳ Цветной — 10$</div>
+                <div class="info-text-small">↳ Рендер — 20$</div>
+
+                <div class="info-text" data-en="• Half body" data-ru="• По пояс">• По пояс</div>
+                <div class="info-text-small">↳ Скетч — 8$</div>
+                <div class="info-text-small">↳ Цветной — 16$</div>
+                <div class="info-text-small">↳ Рендер — 25$</div>
+
+                <div class="info-text" data-en="• Full body" data-ru="• В полный рост">• В полный рост</div>
+                <div class="info-text-small">↳ Скетч — 12$</div>
+                <div class="info-text-small">↳ Цветной — 22$</div>
+                <div class="info-text-small">↳ Рендер — 35$</div>
+
+                <div class="info-text" data-en="• Reference" data-ru="• Референс">• Референс</div>
+                <div class="info-text-small" data-en="↳ The price consists of the components, about 45$" data-ru="↳ Цена состоит из компонентов, около 45$">↳ Цена состоит из компонентов, около 45$</div>
+
+                <div class="info-text" data-en="• Costumes for catwar" data-ru="• Костюмы для catwar">• Костюмы для catwar</div>
+                <div class="info-text-small" data-en="↳ A costume that does not overlap the model — 5$" data-ru="↳ Костюм, не перекрывающий модельку — 5$">↳ Костюм, не перекрывающий модельку — 5$</div>
+                <div class="info-text-small" data-en="↳ A costume that overlaps the model — 10$" data-ru="↳ Костюм, перекрывающий модельку — 10$">↳ Костюм, перекрывающий модельку — 10$</div>
+
+                <div class="info-text" data-en="• Items for catwar" data-ru="• Предметы для catwar">• Предметы для catwar</div>
+                <div class="info-text-small" data-en="↳ Item — from 3$" data-ru="↳ Предмет — от 3$">↳ Предмет — от 3$</div>
+
+                <div class="info-text" data-en="• Backgrounds for catwar" data-ru="• Фоны для catwar">• Фоны для catwar</div>
+                <div class="info-text-small" data-en="↳ Background — from 15$" data-ru="↳ Фон — от 15$">↳ Фон — от 15$</div>
+
+                <!-- ВАЖНАЯ ИНФОРМАЦИЯ (выделена) -->
+                <div style="margin:18px 0 10px; padding:14px 16px; background:rgba(181,152,126,0.08); border-radius:16px; border-left:3px solid #b5987e;">
+                    <div class="info-text" style="font-size:0.8rem; font-weight:500; text-transform:uppercase; letter-spacing:0.4px; color:#6b4f3a; padding-left:0;" data-en="IMPORTANT INFORMATION:" data-ru="ВАЖНАЯ ИНФОРМАЦИЯ:">ВАЖНАЯ ИНФОРМАЦИЯ:</div>
+                    <div class="info-text" style="font-size:0.85rem; padding-left:0; color:#2a1f1a;" data-en="add character: +100%, add background: 0-10$" data-ru="добавить персонажа: +100%, добавить фон: 0-10$">добавить персонажа: +100%, добавить фон: 0-10$</div>
+                </div>
+
+                <!-- PAYMENT -->
+                <div class="colored-item" data-en="✦ PAYMENT" data-ru="✦ ОПЛАТА">✦ ОПЛАТА</div>
+                <div class="info-text" data-en="• Payment methods: Hipolink, Lavatop, Sberbank, Tinkoff." data-ru="• Способы оплаты: Hipolink, Lavatop, Сбербанк, Тинькофф.">• Способы оплаты: Hipolink, Lavatop, Сбербанк, Тинькофф.</div>
+                <div class="info-text" data-en="• Payment is made in full after the sketch, or 50% after the sketch and another 50% after the finished work." data-ru="• Оплата производится полностью после скетча, либо 50% после скетча и ещё 50% после готовой работы.">• Оплата производится полностью после скетча, либо 50% после скетча и ещё 50% после готовой работы.</div>
+                <div class="info-text" data-en="• The money will not be refunded after making the payment." data-ru="• Деньги не возвращаются после внесения оплаты.">• Деньги не возвращаются после внесения оплаты.</div>
+            </div>
+
+        </div>
+
+        <!-- ФУТЕР -->
+        <div class="footer-note">
+            ART FLOWER · дизайн от Анрекьюит · Новосибирск 2019
+        </div>
+
+    </div>
+
+    <script>
+        function switchLanguage(lang) {
+            const elements = document.querySelectorAll('[data-ru], [data-en]');
+            elements.forEach(el => {
+                if (lang === 'ru' && el.hasAttribute('data-ru')) {
+                    el.textContent = el.getAttribute('data-ru');
+                } else if (lang === 'en' && el.hasAttribute('data-en')) {
+                    el.textContent = el.getAttribute('data-en');
+                }
+            });
+            document.querySelectorAll('.lang-btn').forEach(btn => {
+                btn.classList.toggle('active', btn.getAttribute('data-lang') === lang);
+            });
+            localStorage.setItem('selectedLang', lang);
+        }
+
+        document.querySelectorAll('.lang-btn').forEach(btn => {
+            btn.addEventListener('click', () => switchLanguage(btn.getAttribute('data-lang')));
+        });
+
+        const saved = localStorage.getItem('selectedLang');
+        switchLanguage(saved || 'ru');
+    </script>
+
 </body>
 </html>
